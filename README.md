@@ -45,7 +45,7 @@ Spring Cloud Deployer 구현:
 * [Cloud Foundry](https://github.com/spring-cloud/spring-cloud-deployer-cloudfoundry)
 * [Kubernetes](https://github.com/spring-cloud/spring-cloud-deployer-kubernetes)
 
-**도메인 모델(Domain Model)** : Spring Cloud Data Flow [domain module](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-core)은 *소스(source)*에서 *싱크(sink)*까지 선형 데이터 파이프라인에 Spring Cloud Stream 애플리케이션들을 구성하는 스트림 개념이 포함되어 있습니다. 이는 필요에 따라 중간에 *프로세서(processor)* 애플리케이션들을 포함할 수 있습니다. 또한, SCDF의 도메인에는 무한정 실행되지 않는 모든 프로세스를 포함할 수 있는 *작업(task)* 개념도 포함되어 있으며, 이에는 [Spring Batch](https://github.com/spring-projects/spring-batch) 작업도 포함됩니다.
+**도메인 모델(Domain Model)** : Spring Cloud Data Flow [domain module](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-core)은 *소스(source)* 에서 *싱크(sink)* 까지 선형 데이터 파이프라인에 Spring Cloud Stream 애플리케이션들을 구성하는 스트림 개념이 포함되어 있습니다. 이는 필요에 따라 중간에 *프로세서(processor)* 애플리케이션들을 포함할 수 있습니다. 또한, SCDF의 도메인에는 무한정 실행되지 않는 모든 프로세스를 포함할 수 있는 *작업(task)* 개념도 포함되어 있으며, 이에는 [Spring Batch](https://github.com/spring-projects/spring-batch) 작업도 포함됩니다.
 
 
 **어플리케이션 레지스트리(Application Registry)** : [App Registry](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-registry)는 재사용 가능한 어플리케이션들의 카탈로그 메타데이터를 관리합니다. 예를 들어 Maven 좌표에 의존하는 경우, 어플리케이션 URI 는 이와 같은 형식입니다: `maven://<groupId>:<artifactId>:<version>`.
