@@ -20,109 +20,71 @@
   </a>
 </p>
 
-*Spring Cloud Data Flow* is a microservices-based toolkit for building streaming and batch data processing pipelines in
-Cloud Foundry and Kubernetes.
+*Spring Cloud Data Flow* 는 [Cloud Foundry](https://www.cloudfoundry.org/) 와 Kubernetes 에서 스트리밍과 대량 데이터 일괄 처리 파이프라인을 만들기 위한 마이크로서비스 기반의 도구입니다. 
 
-Data processing pipelines consist of Spring Boot apps, built using the [Spring Cloud Stream](https://github.com/spring-cloud/spring-cloud-stream)
-or [Spring Cloud Task](https://github.com/spring-cloud/spring-cloud-task) microservice frameworks. 
+데이터 처리 파이프라인은 [Spring Cloud Stream](https://spring.io/projects/spring-cloud-stream/#overview) 또는 [Spring Cloud Task](https://spring.io/projects/spring-cloud-task/#overview) 마이크로서비스 프레임워크를 사용하여 구축된 Spring Boot 앱으로 구성됩니다.
 
-This makes Spring Cloud Data Flow ideal for a range of data processing use cases, from import/export to event streaming
-and predictive analytics.
+이로 인해 Spring Cloud Data Flow는 데이터 가져오기/내보내기부터 이벤트 스트리밍, 예측 분석에 이르기까지 다양한 데이터 처리 사용 사례에 이상적입니다.
 
 ----
 
-## Components
+## 컴포넌트 (Components)
 
-**Architecture**: The Spring Cloud Data Flow Server is a Spring Boot application that provides RESTful API and REST clients
-(Shell, Dashboard, Java DSL).
-A single Spring Cloud Data Flow installation can support orchestrating the deployment of streams and tasks to Local,
-Cloud Foundry, and Kubernetes.
+**아키텍처 (Architecture)** : Spring Cloud Data Flow 서버는 RESTful API 와 REST 클라이언트(Shell, 대시보드, Java DSL)를 제공하는 Spring Boot 어플리케이션입니다.
 
-Familiarize yourself with the Spring Cloud Data Flow [architecture](https://dataflow.spring.io/docs/concepts/architecture/)
-and [feature capabilities](https://dataflow.spring.io/features/).
+단일 Spring Cloud Data Flow 설치는 로컬, Cloud Foundry, Kubernetes에 스트림과 작업을 오케스트레이션하는 배포를 지원할 수 있습니다.
 
-**Deployer SPI**: A Service Provider Interface (SPI) is defined in the [Spring Cloud Deployer](https://github.com/spring-cloud/spring-cloud-deployer)
-project. The Deployer SPI provides an abstraction layer for deploying the apps for a given streaming or batch data pipeline
-and managing the application lifecycle.
+Spring Cloud Data Flow [아키텍처](https://dataflow.spring.io/docs/concepts/architecture/)
+와 [기능 능력?(feature capabilities)](https://dataflow.spring.io/features/)에 친숙해지세요.
 
-Spring Cloud Deployer Implementations:
+**배포자 SPI(Deployer SPI)** : 서비스 제공자 인터페이스 (SPI) 는 [Spring Cloud Deployer](https://github.com/spring-cloud/spring-cloud-deployer)에 정의되어 있습니다. 배포자 SPI 는 주어진 스트리밍 혹은 배치 데이터 파이프라인을 위한 앱들을 배포하고, 어플리케이션 라이프사이클은 관리하기 위하여 추상화 계층을 제공합니다.
+
+Spring Cloud Deployer 구현:
 
 * [Local](https://github.com/spring-cloud/spring-cloud-deployer-local)
 * [Cloud Foundry](https://github.com/spring-cloud/spring-cloud-deployer-cloudfoundry)
 * [Kubernetes](https://github.com/spring-cloud/spring-cloud-deployer-kubernetes)
 
-**Domain Model**: The Spring Cloud Data Flow [domain module](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-core)
-includes the concept of a *stream* that is a composition of Spring Cloud Stream applications in a linear data pipeline
-from a *source* to a *sink*, optionally including *processor* application(s) in between. The domain also includes the
-concept of a *task*, which may be any process that does not run indefinitely, including [Spring Batch](https://github.com/spring-projects/spring-batch)
-jobs.
+**도메인 모델(Domain Model)** : Spring Cloud Data Flow [domain module](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-core)은 *소스(source)* 에서 *싱크(sink)* 까지 선형 데이터 파이프라인에 Spring Cloud Stream 애플리케이션들을 구성하는 스트림 개념이 포함되어 있습니다. 이는 필요에 따라 중간에 *프로세서(processor)* 애플리케이션들을 포함할 수 있습니다. 또한, SCDF의 도메인에는 무한정 실행되지 않는 모든 프로세스를 포함할 수 있는 *작업(task)* 개념도 포함되어 있으며, 이에는 [Spring Batch](https://github.com/spring-projects/spring-batch) 작업도 포함됩니다.
 
-**Application Registry**: The [App Registry](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-registry)
-maintains the metadata of the catalog of reusable applications.
-For example, if relying on Maven coordinates, an application URI would be of the format:
-`maven://<groupId>:<artifactId>:<version>`.
 
-**Shell/CLI**: The [Shell](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-shell)
-connects to the Spring Cloud Data Flow Server's REST API and supports a DSL that simplifies the process of defining a
-stream or task and managing its lifecycle.
+**어플리케이션 레지스트리(Application Registry)** : [App Registry](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-registry)는 재사용 가능한 어플리케이션들의 카탈로그 메타데이터를 관리합니다. 예를 들어 Maven 좌표에 의존하는 경우, 어플리케이션 URI 는 이와 같은 형식입니다: `maven://<groupId>:<artifactId>:<version>`.
+
+**Shell/CLI**: [Shell](https://github.com/spring-cloud/spring-cloud-dataflow/tree/master/spring-cloud-dataflow-shell)은 Spring Cloud Data Flow 서버의 REST API 에 연결하고, 스트림이나 작업을 정의하고 그 수명 주기를 관리하는 과정을 단순화하는 DSL(도메인 특화 언어)을 지원합니다.
 
 ----
 
 ## Building
 
-Clone the repo and type 
+레포지토리를 clone 하고 아래를 입력하세요. 
 
     $ ./mvnw -s .settings.xml clean install 
 
-Looking for more information? Follow this [link](https://github.com/spring-cloud/spring-cloud-dataflow/blob/master/spring-cloud-dataflow-docs/src/main/asciidoc/appendix-building.adoc).
+더 많은 정보를 찾고 있다면 [이 링크](https://github.com/spring-cloud/spring-cloud-dataflow/blob/master/spring-cloud-dataflow-docs/src/main/asciidoc/appendix-building.adoc)를 참고하세요.
 
 ### Building on Windows
 
-When using Git on Windows to check out the project, it is important to handle line-endings correctly during checkouts.
-By default Git will change the line-endings during checkout to `CRLF`. This is, however, not desired for _Spring Cloud Data Flow_
-as this may lead to test failures under Windows.
-
-Therefore, please ensure that you set Git property `core.autocrlf` to `false`, e.g. using: `$ git config core.autocrlf false`.
-For more information please refer to the [Git documentation, Formatting and Whitespace](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration).
+생략
 
 ----
 
 ## Running Locally w/ Oracle 
-By default, the Dataflow server jar does not include the Oracle database driver dependency.
-If you want to use Oracle for development/testing when running locally, you can specify the `local-dev-oracle` Maven profile when building.
-The following command will include the Oracle driver dependency in the jar:
-```
-$ ./mvnw -s .settings.xml clean package -Plocal-dev-oracle
-```
-You can follow the steps in the [Oracle on Mac ARM64](https://github.com/spring-cloud/spring-cloud-dataflow/wiki/Oracle-on-Mac-ARM64#run-container-in-docker) Wiki to run Oracle XE locally in Docker with Dataflow pointing at it.
 
-> **NOTE:** If you are not running Mac ARM64 just skip the steps related to Homebrew and Colima 
+(생략)
+
 
 ----
 
 ## Running Locally w/ Microsoft SQL Server
-By default, the Dataflow server jar does not include the MSSQL database driver dependency.
-If you want to use MSSQL for development/testing when running locally, you can specify the `local-dev-mssql` Maven profile when building.
-The following command will include the MSSQL driver dependency in the jar:
-```
-$ ./mvnw -s .settings.xml clean package -Plocal-dev-mssql
-```
-You can follow the steps in the [MSSQL on Mac ARM64](https://github.com/spring-cloud/spring-cloud-dataflow/wiki/MSSQL-on-Mac-ARM64#running-dataflow-locally-against-mssql) Wiki to run MSSQL locally in Docker with Dataflow pointing at it.
 
-> **NOTE:** If you are not running Mac ARM64 just skip the steps related to Homebrew and Colima
+(생략)
 
 ----
 
 ## Running Locally w/ IBM DB2
-By default, the Dataflow server jar does not include the DB2 database driver dependency.
-If you want to use DB2 for development/testing when running locally, you can specify the `local-dev-db2` Maven profile when building.
-The following command will include the DB2 driver dependency in the jar:
-```
-$ ./mvnw -s .settings.xml clean package -Plocal-dev-db2
-```
-You can follow the steps in the [DB2 on Mac ARM64](https://github.com/spring-cloud/spring-cloud-dataflow/wiki/DB2-on-Mac-ARM64#running-dataflow-locally-against-db2) Wiki to run DB2 locally in Docker with Dataflow pointing at it.
 
-> **NOTE:** If you are not running Mac ARM64 just skip the steps related to Homebrew and Colima
+(생략)
+
 
 ----
 
